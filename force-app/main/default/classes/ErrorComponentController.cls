@@ -1,7 +1,7 @@
 public class ErrorComponentController {
 	@AuraEnabled
     public static string getRecordType() {
-        //tresting
+        //tresting2
         string errorMessage = label.ErrorMessage;
         return errorMessage;
     }
