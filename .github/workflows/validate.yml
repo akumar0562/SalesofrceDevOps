@@ -12,7 +12,30 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Salesforce Metadata Deploy
-        uses: ./.github/workflows/action.yml
-        with:
-          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
-          DRY_RUN: true
+      - name: Install Salesforce CLI
+        shell: bash
+        run: |
+          npm install -g @salesforce/cli
+          sf --version
+      - name: Login to Environment
+        shell: bash
+        run: |
+          sf org login sfdx-url --set-default --sfdx-url-file <(echo "${{ secrets.SFDX_AUTH_URL }}")
+      - name: Generate package.xml
+        shell: bash
+        run: |
+          sf project generate manifest --source-dir force-app --output-dir manifest       
+      - name: Deploy to Environment
+        shell: bash
+        run: |
+          deployFlags=(
+              --manifest manifest/package.xml
+              --wait 30
+              --test-level RunSpecifiedTests --runtests .Package.types | [.] | flatten | map(select(.name=="ApexClass")) | .[] | .members | [.] | flatten | map(select(. | index("*") | not)) | map(select(. | startswith("TEST"))) | map(.) | unique | join(",")
+              --verbose
+            )
+          if [ "true" = "true" ]; then
+            deployFlags+=( --dry-run )
+          fi
+          sf project deploy start "${deployFlags[@]}"
+      
