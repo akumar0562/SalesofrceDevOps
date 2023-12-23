@@ -53,7 +53,8 @@ jobs:
           deployFlags=(
               --manifest manifest/package.xml
               --wait 30
-              --test-level RunSpecifiedTests --runtests ${{env.APEX_TESTS}}
+              --test-level RunSpecifiedTests 
+              --runtests ${{env.APEX_TESTS}}
               --verbose
             )
           if [ "true" = "true" ]; then
