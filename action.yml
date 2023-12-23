@@ -11,7 +11,7 @@ inputs:
   TEST_LEVEL:
     description: "Deployment Apex testing level."
     type: choice
-    default: RunLocalTests
+    default: RunSpecifiedTests
     options:
       - NoTestRun
       - RunSpecifiedTests
@@ -52,7 +52,7 @@ runs:
         deployFlags=(
             --manifest manifest/package.xml
             --wait ${{ inputs.WAIT }}
-            --test-level ${{ inputs.TEST_LEVEL }}
+            --test-level ${{ inputs.TEST_LEVEL }} RunSpecifiedTests --runtests .Package.types | [.] | flatten | map(select(.name=="ApexClass")) | .[] | .members | [.] | flatten | map(select(. | index("*") | not)) | map(select(. | startswith("TEST"))) | map(.) | unique | join(",")
             --verbose
           )
         if [ "${{ inputs.DRY_RUN }}" = "true" ]; then
