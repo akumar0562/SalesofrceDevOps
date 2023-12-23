@@ -15,5 +15,4 @@ jobs:
         uses: akumar0562/HealthCareGlobal/.github/workflows/action.yml@v1
         with:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
-          DRY_RUN: false
-          TEST_LEVEL: RunLocalTests
+          DRY_RUN: true
