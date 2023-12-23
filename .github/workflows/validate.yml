@@ -50,6 +50,15 @@ jobs:
       - name: Deploy to Environment
         shell: bash
         run: |
-          sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
-          
+          deployFlags=(
+              --manifest manifest/package.xml
+              --wait 30
+              --test-level RunSpecifiedTests
+              --tests ${{env.APEX_TESTS}}
+              --verbose
+            )
+          if [ "true" = "true" ]; then
+            deployFlags+=( --dry-run )
+          fi
+          sf project deploy start "${deployFlags[@]}"
       
