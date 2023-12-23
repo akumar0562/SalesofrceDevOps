@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Salesforce Metadata Deploy
-        uses: akumar0562/HealthCareGlobal@action.yml 
+        uses: akumar0562/HealthCareGlobal/.github/workflows/action.yml@v1
         with:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
           DRY_RUN: false
