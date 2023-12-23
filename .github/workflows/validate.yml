@@ -51,8 +51,5 @@ jobs:
         shell: bash
         run: |
           sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
-          if [ "true" = "true" ]; then
-            deployFlags+=( --dry-run )
-          fi
-          sf project deploy start "${deployFlags[@]}"
+          
       
