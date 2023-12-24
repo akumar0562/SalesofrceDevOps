@@ -47,7 +47,8 @@ jobs:
         shell: bash
         run: |
           sf project generate manifest --source-dir force-app --output-dir manifest       
-      - name: Deploy to Environment
+      - name: Validate with test classes
+        if: ${{ env.APEX_TESTS != 'NoTestRun' }}
         shell: bash
         run: |
           deployFlags=(
@@ -61,4 +62,19 @@ jobs:
             deployFlags+=( --dry-run )
           fi
           sf project deploy start "${deployFlags[@]}"
+      - name: Validate without test classes
+        if: ${{ env.APEX_TESTS == 'NoTestRun' }}
+        shell: bash
+        run: |
+          deployFlags=(
+              --manifest manifest/package.xml
+              --wait 30
+              --test-level NoTestRun
+              --verbose
+            )
+          if [ "true" = "true" ]; then
+            deployFlags+=( --dry-run )
+          fi
+          sf project deploy start "${deployFlags[@]}"
+          
       
