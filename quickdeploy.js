@@ -16,7 +16,7 @@ async function extractTests(){
         //special delimeter for apex tests
         if(line.includes('Quick deploy?')){
 
-            let tests = line.getElementById("Quick deploy?");;
+            let tests = line;
             await fs.promises.writeFile(testsFile,tests);
             await fs.promises.appendFile(testsFile,'\n');
         }
