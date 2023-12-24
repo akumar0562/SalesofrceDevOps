@@ -3,7 +3,6 @@ name: Close Production Pull Request
 # only trigger on pull request closed events
 on:
   pull_request:
-    types: [closed]
     branches:
       - main
     paths:
@@ -15,13 +14,63 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Deploy on ${{ vars.ENVIRONMENT_NAME }}
-        uses: jawills/sf-deploy@v1.0
-        with:
-          SFDX_AUTH_URL`: ${{ secrets.SFDX_AUTH_URL }}
-          DRY_RUN: false
-          TEST_LEVEL: RunLocalTests
+      - name: 'Read PR Body'
+        env:
+                # The pull request body is available through the github context object
+                # we put the body of the pull request in an env variable (only available to this step)
+          PR_BODY: ${{github.event.pull_request.body}}
 
+              # Here we print the content of the environment variable and
+              # pipe to a a text file.
+
+              # Then we call the local script parsePR.js, which will create
+              # a new file called testsToRun.txt. This file will have the list
+              # of tests to run separated by a comma
+
+              # Finally, we add the list of tests to the $GITHUB_ENV variable
+              # as this allows us to reference the list in a subsequent step.  If you
+              # were using a normal env variable, its value would not be available outside this step.
+        run: |
+          echo $PR_BODY > ./quickdeploy.txt
+          node ./quickdeploy.js              
+          QUCIKCHECK=$(cat checkquickdeploy.txt)       
+          echo "APEX_CHECK=$QUCIKCHECK" >> $GITHUB_ENV
+          echo $PR_BODY > ./pr_body.txt
+          node ./parsePR.js              
+          TESTS=$(cat testsToRun.txt)       
+          echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV
+      - name: Deploy on ${{ vars.ENVIRONMENT_NAME }}
+        shell: bash
+        run: |
+          sf org login sfdx-url --set-default --sfdx-url-file <(echo "${{ secrets.SFDX_AUTH_URL }}")
+      - name: Generate package.xml
+        shell: bash
+        run: |
+          sf project generate manifest --source-dir force-app --output-dir manifest    
+      - name: Quick Deploy to Environment 
+        if: ${{ env.APEX_CHECK == 'true' }}
+        shell: bash
+        run: |
+            deployFlags=(
+                --use-most-recent
+                --target-org my-prod-org
+                --verbose
+              )
+            sf project deploy quick "${deployFlags[@]}"
+      - name: Deploy to Environment 
+        if: ${{ env.APEX_CHECK == 'false' }}
+        shell: bash
+        run: |
+          deployFlags=(
+              --manifest manifest/package.xml
+              --wait 30
+              --test-level NoTestRun
+              --verbose
+            )
+          if [ "false" = "true" ]; then
+            deployFlags+=( --dry-run )
+          fi
+          sf project deploy start "${deployFlags[@]}"
   close_job:
     # this job will only run if the PR has been closed without being merged
     if: github.event.pull_request.merged == false
