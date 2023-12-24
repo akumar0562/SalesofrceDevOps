@@ -50,10 +50,9 @@ jobs:
         run: | 
           echo y | sfdx plugins:install sfdx-git-delta
           sfdx plugins    
-      - name: Login to Environment
-        shell: bash
-        run: |
-          sf org login sfdx-url --set-default --sfdx-url-file <(echo "${{ secrets.SFDX_AUTH_URL }}")
+# Authenticate to org using the URL stored in the text file
+      - name: 'Authenticate to Integration Org'
+        run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
       - name: 'Create delta packages for new, modified or deleted metadata'
         run: | 
           mkdir changed-sources
