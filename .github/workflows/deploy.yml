@@ -58,7 +58,7 @@ jobs:
         run: |
             deployFlags=(
                 --use-most-recent
-                --target-org my-prod-org
+                --target-org hospital@kloudrac.com
                 --verbose
               )
             sf project deploy quick "${deployFlags[@]}"
