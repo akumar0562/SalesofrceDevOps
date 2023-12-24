@@ -3,20 +3,17 @@ name: Deploy master branch to production org
 
 # Definition when the workflow should run
 on:
-    pull_request:
-      types: [closed]
-      branches:
-        - main
+    push:
+      branches: [ master ]
       paths:
         - 'force-app/**'
             
 
 # Jobs to be executed
 jobs:
-  merge_job:
-    # this job will only run if the PR has been merged
-        if: github.event.pull_request.merged == true
+    deploy-branch-to-production-org:
         runs-on: ubuntu-latest
+        if: ${{ github.actor != 'dependabot[bot]' }}
         steps:
             - name: 'Read PR Body'
               env:
