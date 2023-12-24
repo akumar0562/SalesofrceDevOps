@@ -18,6 +18,11 @@ jobs:
         if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         steps:
+            # Checkout the source code
+            - name: 'Checkout source code'
+              uses: actions/checkout@v3
+              with:
+                fetch-depth: 0
             - name: 'Read PR Body'
               env:
                 # The pull request body is available through the github context object
@@ -54,11 +59,7 @@ jobs:
                   echo y | sfdx plugins:install sfdx-git-delta
                   sfdx plugins 
 
-            # Checkout the source code
-            - name: 'Checkout source code'
-              uses: actions/checkout@v3
-              with:
-                fetch-depth: 0
+            
 
             # Store secret for production org
             - name: 'Populate auth file with SFDX_URL secret of the integration and staging orgs'
