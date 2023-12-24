@@ -2,10 +2,19 @@
 
 Please include a summary of the change and what has changed.
 
-### Jira Ticket
+Please delete options that are not relevant.
 
-CRM-XXX
+- [ ] Bug fix (non-breaking change which fixes an issue)
+
+- [ ] New feature (non-breaking change which adds functionality)
+
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+
+- [ ] This change requires a documentation update
 
 ### Apex Tests to Run
 
-Apex::[all]::Apex
+- [ ] Quick deploy?:
+
+      
+Apex::[NoTestRun]::Apex
