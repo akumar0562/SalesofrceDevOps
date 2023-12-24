@@ -46,13 +46,13 @@ jobs:
       - name: Generate package.xml
         shell: bash
         run: |
-          sf project generate manifest --source-dir force-app --output-dir manifest       
+          sf project generate manifest --source-dir force-app --output-dir manifest --type post       
       - name: Validate with test classes
         if: ${{ env.APEX_TESTS != 'NoTestRun' }}
         shell: bash
         run: |
           deployFlags=(
-              --manifest manifest/package.xml
+              --manifest manifest/package.xml 
               --wait 30
               --test-level RunSpecifiedTests
               --tests ${{env.APEX_TESTS}}
