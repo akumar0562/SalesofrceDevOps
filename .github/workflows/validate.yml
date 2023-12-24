@@ -37,16 +37,6 @@ jobs:
           node ./parsePR.js              
           TESTS=$(cat testsToRun.txt)       
           echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV
-      - name: Install Salesforce CLI
-        shell: bash
-        run: |
-          npm install -g @salesforce/cli
-          sf --version
-    # install SFDX-Git-Delta plugin - https://github.com/scolladon/sfdx-git-delta
-      - name: 'Installing sfdx git delta'
-        run: | 
-          echo y | sfdx plugins:install sfdx-git-delta
-          sfdx plugins
 # Now Install Salesforce CLI
       - name: 'Install Salesforce CLI'
         run: |
@@ -55,6 +45,11 @@ jobs:
                   tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1
                   echo "$HOME/sfdx/bin" >> $GITHUB_PATH
                   ~/sfdx/bin/sfdx version
+  # install SFDX-Git-Delta plugin - https://github.com/scolladon/sfdx-git-delta
+      - name: 'Installing sfdx git delta'
+        run: | 
+          echo y | sfdx plugins:install sfdx-git-delta
+          sfdx plugins    
       - name: Login to Environment
         shell: bash
         run: |
