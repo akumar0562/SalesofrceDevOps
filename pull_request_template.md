@@ -14,7 +14,7 @@ Please delete options that are not relevant.
 
 ### Apex Tests to Run
 
-Quick deploy?: - [ ]
+- [ ] Quick deploy?:
 
       
 Apex::[NoTestRun]::Apex
