@@ -46,7 +46,7 @@ jobs:
       - name: Generate package.xml
         shell: bash
         run: |
-          sf project generate manifest --source-dir force-app --output-dir manifest --type post       
+          sf project generate manifest --source-dir force-app --output-dir manifest --type pre       
       - name: Validate with test classes
         if: ${{ env.APEX_TESTS != 'NoTestRun' }}
         shell: bash
