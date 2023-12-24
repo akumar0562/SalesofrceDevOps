@@ -54,17 +54,17 @@ jobs:
         run: |
           sf project generate manifest --source-dir force-app --output-dir manifest    
       - name: Quick Deploy to Environment 
-        if: ${{ (env.APEX_CHECK).contains('x') }}
+        if: ${{ contains(env.APEX_CHECK,'x') }}
         shell: bash
         run: |
             deployFlags=(
                 --use-most-recent
-                --target-org my-prod-org
+                --target-org hospital@kloudrac.com
                 --verbose
               )
             sf project deploy quick "${deployFlags[@]}"
       - name: Deploy to Environment 
-        if: ${{ !(env.APEX_CHECK).contains('x')}}
+        if: ${{ !contains(env.APEX_CHECK,'x')}}
         shell: bash
         run: |
           deployFlags=(
