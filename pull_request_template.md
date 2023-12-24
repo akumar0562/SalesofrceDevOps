@@ -14,6 +14,8 @@ Please delete options that are not relevant.
 
 ### Apex Tests to Run
 
-- [ ] Quick deploy?
+Quick deploy?: 
+
+<input type="checkbox" checked>
       
 Apex::[NoTestRun]::Apex
