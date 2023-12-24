@@ -43,10 +43,14 @@ jobs:
         shell: bash
         run: |
           sf org login sfdx-url --set-default --sfdx-url-file <(echo "${{ secrets.SFDX_AUTH_URL }}")
+      - name: 'Create delta packages for new, modified or deleted metadata'
+        run: | 
+          mkdir changed-sources
+          sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/
       - name: Generate package.xml
         shell: bash
         run: |
-          sf project generate manifest --source-dir force-app --output-dir manifest --type pre       
+          sf project generate manifest --source-dir changed-sources/force-app --output-dir manifest --type pre       
       - name: Validate with test classes
         if: ${{ env.APEX_TESTS != 'NoTestRun' }}
         shell: bash
