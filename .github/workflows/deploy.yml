@@ -53,7 +53,7 @@ jobs:
         run: |
           sf project generate manifest --source-dir force-app --output-dir manifest    
       - name: Quick Deploy to Environment 
-        if: ${{ (env.APEX_CHECK).contains('x') }}
+        if: ${{ env.APEX_CHECK.contains('x') }}
         shell: bash
         run: |
             deployFlags=(
@@ -63,7 +63,7 @@ jobs:
               )
             sf project deploy quick "${deployFlags[@]}"
       - name: Deploy to Environment 
-        if: ${{ !(env.APEX_CHECK).contains('x')}}
+        if: ${{ !env.APEX_CHECK.contains('x')}}
         shell: bash
         run: |
           deployFlags=(
