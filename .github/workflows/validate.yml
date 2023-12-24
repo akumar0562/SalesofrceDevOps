@@ -44,6 +44,10 @@ jobs:
         run: | 
           echo y | sfdx plugins:install sfdx-git-delta
           sfdx plugins
+      - name: 'Installing java'
+        run: |
+          sudo apt-get update
+          sudo apt install default-jdk
       - name: Login to Environment
         shell: bash
         run: |
