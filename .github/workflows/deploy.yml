@@ -3,6 +3,7 @@ name: Close Production Pull Request
 # only trigger on pull request closed events
 on:
   pull_request:
+    types: [closed]
     branches:
       - main
     paths:
