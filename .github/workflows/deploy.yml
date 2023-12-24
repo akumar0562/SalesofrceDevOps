@@ -52,7 +52,7 @@ jobs:
       - name: Generate package.xml
         shell: bash
         run: |
-          sf project generate manifest --source-dir force-app --output-dir manifest    
+          sf project generate manifest --source-dir force-app --output-dir manifest --type pre   
       - name: Quick Deploy to Environment 
         if: ${{ contains(env.APEX_CHECK,'x') }}
         shell: bash
