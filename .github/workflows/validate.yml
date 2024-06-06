@@ -116,7 +116,7 @@ jobs:
 
             # Install SFDX scanner
             - name: 'Installing SFDX scanner'
-              run: sfdx plugins:install @salesforce/sfdx-scanner
+              run: sf plugins install @salesforce/sfdx-scanner@latest-beta
 
             # Prior to setting up this workflow, you have to create a Github Secret
             # that contains the sfdx url of the integration/qa org.
@@ -158,6 +158,8 @@ jobs:
               run: |
                   cd changed-sources
                   sfdx scanner:run --format sarif --target './**/*.cls' --category "Design,Best Practices,Performance" --outfile 'apexScanResults.sarif'  
+                  RESULT=$(cat apexScanResults.sarif)       
+                  echo "SCANNER_RESULT=$RESULT" >> $GITHUB_ENV
                   cd ..
 
             # Now we upload the .sarif file as explained in the previous step
