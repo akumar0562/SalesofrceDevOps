@@ -28,7 +28,7 @@ jobs:
         # can specify which OS this VM should run on. 
         # In this case, we are going to run our commands on the latest version
         # of ubuntu
-        if: github.event_name == 'pull_request'
+        if: ${{ github.actor != 'dependabot[bot]' }}
         runs-on: self-hosted
         
         steps:
@@ -163,7 +163,7 @@ jobs:
         # of ubuntu
         name: validation
         needs: [ PMD-check ]
-        if: always() && github.event_name == 'pull_request'
+        if: always() && ${{ github.actor != 'dependabot[bot]' }}
         runs-on: self-hosted
         steps:
             # Now we install nodejs in the VM, and specify version 14
