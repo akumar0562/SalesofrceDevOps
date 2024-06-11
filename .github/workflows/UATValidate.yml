@@ -170,10 +170,10 @@ jobs:
               if: ${{ env.APEX_TESTS != 'NoTestRun' }}
               run: |
                   echo ${{env.APEX_TESTS}}
-                  sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
+                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
 
             # If the env variable equals all, we run all tests
             - name: 'Check-only deploy delta changes - run all tests'
               if: ${{ env.APEX_TESTS == 'NoTestRun' }}
               run: |
-                  sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel NoTestRun  --json
+                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level NoTestRun  --json
