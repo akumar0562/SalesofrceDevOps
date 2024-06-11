@@ -108,12 +108,6 @@ jobs:
                   echo y | sfdx plugins:install sfdx-git-delta
                   sfdx plugins 
 
-            # Install java as it is required for the next step
-            - name: 'Installing java'
-              run: |
-                sudo apt-get update
-                sudo apt install default-jdk
-
             # Install SFDX scanner
             - name: 'Installing SFDX scanner'
               run: sfdx plugins:install @salesforce/sfdx-scanner
@@ -170,10 +164,10 @@ jobs:
               if: ${{ env.APEX_TESTS != '' }}
               run: |
                   echo ${{env.APEX_TESTS}}
-                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests --tests ${{env.APEX_TESTS}} --wait --verbose --json
+                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests --tests ${{env.APEX_TESTS}} --verbose --json
 
             # If the env variable equals all, we run all tests
             - name: 'Check-only deploy delta changes - run all tests'
               if: ${{ env.APEX_TESTS == '' }}
               run: |
-                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests --tests ${{env.APEX_TESTS}} --wait --verbose --json
+                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests --tests ${{env.APEX_TESTS}} --verbose --json
