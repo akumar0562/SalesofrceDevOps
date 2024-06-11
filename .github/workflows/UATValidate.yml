@@ -148,7 +148,7 @@ jobs:
             - name: Setup PMD
               uses: legetz/setup-pmd@7.1.0
             - name: APEX full scan
-              run: pmd check --dir ./changed-sources/force-app/main/default/classes/*.cls --rulesets ./pmd-rules.xml -f text
+              run: pmd check --dir ./changed-sources/force-app/main/default/classes/*.cls --rulesets ./ruleset.xml -f text
 
             # Now we upload the .sarif file as explained in the previous step
 
