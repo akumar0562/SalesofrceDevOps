@@ -28,13 +28,17 @@ jobs:
         # can specify which OS this VM should run on. 
         # In this case, we are going to run our commands on the latest version
         # of ubuntu
-        runs-on: ubuntu-latest
-        if: ${{ github.actor != 'dependabot[bot]' }}
+        if: github.event_name == 'pull_request'
+        runs-on: self-hosted
+        
         steps:
+            - name: 'Git Version'
+              run:   git --version
+            - name: 'Git Checkout'
             # Now we install nodejs in the VM, and specify version 14
             - uses: actions/setup-node@v3
               with:
-                node-version: '14'
+                node-version: '16'
 
             # The idea is that the VM can access your remote repository
             # because your repository is an sfdx project.
@@ -159,13 +163,13 @@ jobs:
         # of ubuntu
         name: validation
         needs: [ PMD-check ]
-        runs-on: ubuntu-latest
-        if: always() && ${{ github.actor != 'dependabot[bot]' }}
+        if: always() && github.event_name == 'pull_request'
+        runs-on: self-hosted
         steps:
             # Now we install nodejs in the VM, and specify version 14
             - uses: actions/setup-node@v3
               with:
-                node-version: '14'
+                node-version: '16'
 
             # The idea is that the VM can access your remote repository
             # because your repository is an sfdx project.
