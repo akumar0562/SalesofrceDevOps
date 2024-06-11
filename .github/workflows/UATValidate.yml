@@ -164,10 +164,10 @@ jobs:
               if: ${{ env.APEX_TESTS != '' }}
               run: |
                   echo ${{env.APEX_TESTS}}
-                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests --tests ${{env.APEX_TESTS}} --verbose --json
+                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests --tests ${{env.APEX_TESTS}} --verbose --coverageformatters json-summary
 
             # If the env variable equals all, we run all tests
             - name: 'Check-only deploy delta changes - run all tests'
               if: ${{ env.APEX_TESTS == '' }}
               run: |
-                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunSpecifiedTests -r "not,a,test" --wait 30 --verbose --json
+                  sf project deploy validate --source-dir changed-sources/force-app --async --test-level RunLocalTests --wait 30 --verbose --coverageformatters json-summary
