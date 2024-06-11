@@ -29,7 +29,7 @@ jobs:
         # In this case, we are going to run our commands on the latest version
         # of ubuntu
         if: ${{ github.actor != 'dependabot[bot]' }}
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         
         steps:
             # Now we install nodejs in the VM, and specify version 14
@@ -161,7 +161,7 @@ jobs:
         name: validation
         needs: [ PMD-check ]
         if: always() && ${{ github.actor != 'dependabot[bot]' }}
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         steps:
             # Now we install nodejs in the VM, and specify version 14
             - uses: actions/setup-node@v3
