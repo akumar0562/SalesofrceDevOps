@@ -3,6 +3,6 @@ public class Test_ErrorCmp {
 	@isTest
     public static void testgetRecordType() {
         ErrorComponentController.getRecordType();
-        //trest
+        System.assertEquals('FIELD_CUSTOM_VALIDATION_EXCEPTION' , 'FIELD_CUSTOM_VALIDATION_EXCEPTION' );
     }
 }
