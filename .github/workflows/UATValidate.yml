@@ -5,7 +5,6 @@ name: Validate PR on develop branch
 on:
   workflow_run:
     workflows: [PMD Check]
-    types: [completed]
             
 # Jobs to be executed when the above conditions are met
 jobs:
