@@ -49,22 +49,22 @@ jobs:
               run: |
                   echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
             - name: QA Sandbox- Deployment
-              if: ${{ github.base_ref == 'refs/heads/QA' }}
+              if: ${{ github.ref == 'refs/heads/QA' }}
               shell: bash
               run: |
                   echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
             - name: UAT Sandbox- Deployment
-              if: ${{ github.base_ref == 'refs/heads/UAT' }}
+              if: ${{ github.ref == 'refs/heads/UAT' }}
               shell: bash
               run: |
                   echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
             - name: Staging Sandbox- Deployment
-              if: ${{ github.base_ref == 'refs/heads/staging' }}
+              if: ${{ github.ref == 'refs/heads/staging' }}
               shell: bash
               run: |
                   echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
             - name: Main Production- Deployment
-              if: ${{ github.base_ref == 'refs/heads/main' }}
+              if: ${{ github.ref == 'refs/heads/main' }}
               shell: bash
               run: |
                   echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
