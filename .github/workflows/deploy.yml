@@ -44,7 +44,7 @@ jobs:
 
             # Store secret for production org
             - name: DevInt Sandbox- Deployment
-              if: ${{ github.base_ref == 'refs/heads/DevInt' }}
+              if: ${{ github.ref == 'refs/heads/DevInt' }}
               shell: bash
               run: |
                   echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
