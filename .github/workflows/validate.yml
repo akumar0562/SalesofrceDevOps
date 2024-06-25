@@ -42,7 +42,6 @@ jobs:
               run: | 
                   echo y | sfdx plugins:install sfdx-git-delta
                   sfdx plugins 
-            - name: 'Populate auth file with SFDX_URL secret of integration org'
             - name: DevInt Sandbox- Validation
               if: ${{ github.base_ref == 'DevInt' }}
               shell: bash
