@@ -5,8 +5,7 @@ on:
     pull_request:
       types: [opened, synchronize]
       branches: [   main, DevInt, QA, UAT, staging ]
-      paths:
-        - 'force-app/**'
+
 # Jobs to be executed when the above conditions are met
 jobs:
     validate-deployment-on-develop-org:
