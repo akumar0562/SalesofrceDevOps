@@ -8,7 +8,7 @@
 			embeddedservice_bootstrap.init(
 				'00D2w00000Quzoz',
 				'Kloudrac',
-                'https://kloudrac-cd-dev-ed.develop.my.salesforce.com',
+                'https://kloudrac-cd-dev-ed.develop.my.salesforce.com/ESWKloudrac1727682510760',
 				{
 					scrt2URL: 'https://kloudrac-cd-dev-ed.develop.my.salesforce-scrt.com'
 				}
