@@ -8,7 +8,7 @@
 			embeddedservice_bootstrap.init(
 				'00D2w00000Quzoz',
 				'Kloudrac',
-                'https://kloudrac-cd-dev-ed.develop.my.salesforce.com/ESWKloudrac1727682510760',
+				'https://kloudrac-cd-dev-ed.develop.my.site.com/ESWKloudrac1727682510760',
 				{
 					scrt2URL: 'https://kloudrac-cd-dev-ed.develop.my.salesforce-scrt.com'
 				}
@@ -18,7 +18,8 @@
 		}
 	};
 </script>
-    <script type='text/javascript' src='https://service.force.com/embeddedservice/asyncclient/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+<script type='text/javascript' src='https://kloudrac-cd-dev-ed.develop.my.site.com/ESWKloudrac1727682510760/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
 
 </body>
 </html>
