@@ -21,4 +21,4 @@
 <script type='text/javascript' src='https://kloudrac-cd-dev-ed.develop.my.site.com/ESWKloudrac1727682510760/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 </body>
-</hmtl>
+</html>
